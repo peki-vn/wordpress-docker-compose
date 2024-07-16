@@ -19,6 +19,8 @@ services:
       - db
     links:
       - db
+    networks:
+      - moonai_kong-net
 
   wpcli:
     image: wordpress:cli
@@ -33,6 +35,8 @@ services:
     depends_on:
       - db
       - wp
+    networks:
+      - moonai_kong-net
 
   pma:
     image: phpmyadmin:latest  # https://hub.docker.com/_/phpmyadmin
@@ -49,6 +53,8 @@ services:
     volumes:
      - ./config/pma_php.ini:/usr/local/etc/php/conf.d/conf.ini
      - ./config/pma_config.php:/etc/phpmyadmin/config.user.inc.php
+    networks:
+      - moonai_kong-net
 
   db:
     image: mysql:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
@@ -66,6 +72,13 @@ services:
     environment:
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+    networks:
+     - moonai_kong-net
+
+networks:
+  moonai_kong-net:
+    external: true
 
 volumes:
   db_data:
+
