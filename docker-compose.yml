@@ -2,7 +2,7 @@ version: '3'
 
 services:
   wp:
-    image: wordpress:latest # https://hub.docker.com/_/wordpress/
+    image: wordpress:latest
     volumes:
       - ./config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
       - ./wp-app:/var/www/html # Full wordpress project
@@ -20,26 +20,25 @@ services:
     networks:
       - moonai_kong-net
 
-  wpcli:
-    image: wordpress:cli
-    volumes:
-      - ./config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
-      - ./wp-app:/var/www/html
-    environment:
-      WORDPRESS_DB_HOST: db
-      WORDPRESS_DB_NAME: "${DB_NAME}"
-      WORDPRESS_DB_USER: root
-      WORDPRESS_DB_PASSWORD: "${DB_ROOT_PASSWORD}"
-    depends_on:
-      - db
-      - wp
-    networks:
-      - moonai_kong-net
+  # wpcli:
+  #   image: wordpress:cli
+  #   volumes:
+  #     - ./config/wp_php.ini:/usr/local/etc/php/conf.d/conf.ini
+  #     - ./wp-app:/var/www/html
+  #   environment:
+  #     WORDPRESS_DB_HOST: db
+  #     WORDPRESS_DB_NAME: "${DB_NAME}"
+  #     WORDPRESS_DB_USER: root
+  #     WORDPRESS_DB_PASSWORD: "${DB_ROOT_PASSWORD}"
+  #   depends_on:
+  #     - db
+  #     - wp
+  #   networks:
+  #     - moonai_kong-net
 
   pma:
-    image: phpmyadmin:latest  # https://hub.docker.com/_/phpmyadmin
+    image: phpmyadmin:latest 
     environment:
-      # https://docs.phpmyadmin.net/en/latest/setup.html#docker-environment-variables
       PMA_HOST: db
       PMA_PORT: 3306
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
@@ -53,8 +52,7 @@ services:
       - moonai_kong-net
 
   db:
-    image: mariadb:latest # https://hub.docker.com/_/mysql/ - or mariadb https://hub.docker.com/_/mariadb
-    # platform: linux/x86_64  # Uncomment if your machine is running on arm (ex: Apple Silicon processor)
+    image: mariadb:latest
     command: [
         '--default_authentication_plugin=mysql_native_password',
         '--character-set-server=utf8mb4',
