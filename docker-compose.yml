@@ -36,20 +36,20 @@ services:
   #   networks:
   #     - moonai_kong-net
 
-  pma:
-    image: phpmyadmin:latest 
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
-      UPLOAD_LIMIT: 50M
-    links:
-      - db:db
-    volumes:
-     - ./config/pma_php.ini:/usr/local/etc/php/conf.d/conf.ini
-     - ./config/pma_config.php:/etc/phpmyadmin/config.user.inc.php
-    networks:
-      - moonai_kong-net
+  # pma:
+  #   image: phpmyadmin:latest 
+  #   environment:
+  #     PMA_HOST: db
+  #     PMA_PORT: 3306
+  #     MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+  #     UPLOAD_LIMIT: 50M
+  #   links:
+  #     - db:db
+  #   volumes:
+  #    - ./config/pma_php.ini:/usr/local/etc/php/conf.d/conf.ini
+  #    - ./config/pma_config.php:/etc/phpmyadmin/config.user.inc.php
+  #   networks:
+  #     - moonai_kong-net
 
   db:
     image: mariadb:latest
