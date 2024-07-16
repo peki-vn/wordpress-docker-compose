@@ -60,7 +60,7 @@ services:
     ]
     volumes:
       - ./wp-data:/docker-entrypoint-initdb.d
-      - db_data:/var/lib/mysql
+      - prod_db_data:/var/lib/mysql
     environment:
       MYSQL_DATABASE: "${DB_NAME}"
       MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
@@ -68,7 +68,7 @@ services:
      - moonai_kong-net
 
 volumes:
-  db_data:
+  prod_db_data:
 
 networks:
   moonai_kong-net:
