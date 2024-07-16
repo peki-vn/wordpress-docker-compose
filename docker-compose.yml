@@ -69,10 +69,10 @@ services:
     networks:
      - moonai_kong-net
 
+volumes:
+  db_data:
+
 networks:
   moonai_kong-net:
     external: true
-
-volumes:
-  db_data:
 
